@@ -27,8 +27,6 @@ class Weather:
         self.df_city_pro = '1'
         self.beijing = '1'
 
-
-
     def get_city_list(self):
         f = open("./2.txt",'r') 
         city_list_xml = f.read()
@@ -55,8 +53,6 @@ class Weather:
             self.city_list.append(i.get('weathercode'))
         return self.city_list
 
-
-
     def connect_weather(self,city_num):
         url = 'http://www.weather.com.cn/sk_2d/'+str(city_num)+'.html'
         try:
@@ -66,8 +62,6 @@ class Weather:
         except requests.exceptions.RequestException as e:
             time.sleep(3)
             self.connect_weather(city_num)
-
-
 
     def connect_warning(self,city_num):
         url = 'http://www.weather.com.cn/dingzhi/'+str(city_num)+'.html'
@@ -80,7 +74,6 @@ class Weather:
         except (IndexError,requests.exceptions.RequestException):
             time.sleep(2)
             self.connect_warning(city_num)
-
 
     def get_data(self):
         self.weather={}
@@ -116,7 +109,7 @@ class Weather:
     def get_csv(self):
         self.weather_csv.to_csv('1.csv',index=False)
 
-    
+        
     def get_sql(self):
         sql = 'postgresql+pg8000://postgres:******@localhost:5432/weatherdata'
         conn = create_engine(sql,encoding='utf8')
@@ -146,15 +139,4 @@ if __name__ == '__main__':
         time.sleep(3600)
 #    w.get_csv()
 #    df = w.weather_csv
-
-
-
-
-
-
-
-
-
-
-
 
