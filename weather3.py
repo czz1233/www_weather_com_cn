@@ -30,7 +30,7 @@ class Weather:
 
 
     def get_city_list(self):
-        f = open(r"C:\Users\马超\Desktop\2.txt",'r') 
+        f = open("./2.txt",'r') 
         city_list_xml = f.read()
         f.close()
         bs_city_list = BeautifulSoup(city_list_xml,'lxml')
@@ -110,25 +110,21 @@ class Weather:
 
 
     def get_df(self):          
-        self.weather_csv = pd.merge(  left = self.weather_csv,
-                                      right = self.df_city_pro,
-                                      on='city',
-                                      how='left'  )
+        self.weather_csv = pd.merge(left = self.weather_csv, right = self.df_city_pro,
+                                    on='city', how='left')
 
     def get_csv(self):
         self.weather_csv.to_csv('1.csv',index=False)
 
     
     def get_sql(self):
-        sql = 'postgresql+pg8000://postgres:dd1314@localhost:5432/weatherdata'
+        sql = 'postgresql+pg8000://postgres:******@localhost:5432/weatherdata'
         conn = create_engine(sql,encoding='utf8')
-        pd.io.sql.to_sql(self.weather_csv,'weather_com_cn',conn,if_exists='append',
-                         index=False, chunksize = 2000)
+        pd.io.sql.to_sql(self.weather_csv,'weather_com_cn',conn,if_exists='append',index=False, chunksize = 2000)
 
 
 
 if __name__ == '__main__':
-
     def run():
         w = Weather()
         l = w.get_city_list()
@@ -143,7 +139,6 @@ if __name__ == '__main__':
         t2=time.time()
         print(t2-t1)
 
-    
     while True:
         print(time.strftime('%H:%M:%S',time.localtime(time.time()))+' -- 开始')
         run()
