@@ -138,6 +138,7 @@ if __name__ == '__main__':
                 pass
         w.get_df()
         w.get_sql()
+        print(w.weather_csv)
         t2=time.time()
         print(t2-t1)
 
